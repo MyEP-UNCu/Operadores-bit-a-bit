@@ -100,10 +100,18 @@ Podemos clasificarlos en:
   \item Operadores {bit a bit}
   \item Operadores de desplazamiento
 \end{itemize}
-Por lo general, las operaciones de manejo de bits están soportadas
-directamente en el procesador. Son operaciones muy rápidas, a
-comparación de las operaciones aritméticas (tales como sumas o
-multiplicaciones).
+En ciertos procesadores, las operaciones de manejo de bits están
+soportadas directamente en el hardware. Por ejemplo, las instrucciones
+\verb|SBI| y \verb|CLI| en AVR  (sólo para E/S) y \verb|BSF| y
+\verb|BCF| en PIC\footnote{Estas permiten poner a \texttt{'1'}, a
+\texttt{'0'} o evaluar el valor de un bit.}. En otros procesadores, esta
+manipulación directa no está soportada, o solamente está permitida para
+el área de E/S, por lo que se recurre a las técnicas que se explican a
+continuación\footnote{La técnica leer/modificar/escribir tiene el
+inconveniente de que esta secuencia podría ser interrumpida por otro
+proceso que afecte la misma variable.  Esto no pasa en las instrucciones
+de manipulación directa como las antedichas (que son atómicas). Las de
+evaluación de bit no tienen este problema.}.
 
 \section{Operadores bit a bit}
 
@@ -173,7 +181,7 @@ comportamiento siguiente:
   \item El \textbf{desplazamiento a la derecha} está definido por la
     implementación del compilador. Los bits agregados luego del
     desplazamiento pueden ser del valor del
-    bit más significativo (MSB), o pueden ser '0'.
+    bit más significativo (MSB), o pueden ser \verb!'0'!.
   \item El \textbf{desplazamiento a la izquierda} {\color{red}tiene un
     comportamiento indefinido}.
 \end{itemize}
